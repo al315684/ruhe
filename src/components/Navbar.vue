@@ -9,7 +9,13 @@
             <v-btn flat style="color: #DDF0F3">Perfil</v-btn>
         </v-toolbar>
         <v-navigation-drawer v-model="drawer" app class="primary">
-            <p>Holi</p>
+            <v-list>
+              <v-list-tile v-for="(option, index) in options" :key="index" router :to="option.link">
+                <v-list-tile-content>
+                  <v-list-tile-title class="light-blue--text text--lighten-4" style="font-size: 1.55rem">{{ option.name }}</v-list-tile-title>
+                </v-list-tile-content>
+              </v-list-tile>
+            </v-list>
         </v-navigation-drawer>
   </div>
 </template>
@@ -17,7 +23,9 @@
 export default {
   data () {
     return {
-      drawer: false
+      drawer: false,
+      options: [ { name: 'Informes', link: '/reports' },
+                 { name: 'Pacientes', link: '/patients'} ]
     }
   }
 }
