@@ -6,7 +6,29 @@
                 RUHE
             </v-toolbar-title>
             <v-spacer></v-spacer>
-            <v-btn flat style="color: #DDF0F3">Perfil</v-btn>
+            <div class="text-xs-center">
+              <v-menu offset-y>
+                <template v-slot:activator="{ on }">
+                  <v-btn
+                    dark
+                    v-on="on"
+                    style="color: #DDF0F3"
+                    flat
+                  >
+                    Perfil
+                  </v-btn>
+                </template>
+                <v-list>
+                  <v-list-tile
+                    v-for="(item, index) in items"
+                    :key="index"
+                    @click="drawer = !drawer"
+                  >
+                    <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+                  </v-list-tile>
+                </v-list>
+              </v-menu>
+            </div>
         </v-toolbar>
         <v-navigation-drawer v-model="drawer" app class="primary">
             <v-list>
@@ -25,7 +47,11 @@ export default {
     return {
       drawer: false,
       options: [ { name: 'Informes', link: '/reports' },
-                 { name: 'Pacientes', link: '/patients'} ]
+                 { name: 'Pacientes', link: '/patients'} ],
+      items: [
+        { title: 'Perfil' },
+        { title: 'Cerrar sesión' }
+      ]
     }
   }
 }
