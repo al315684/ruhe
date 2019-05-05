@@ -4,6 +4,7 @@ import Home from './views/Home.vue'
 import Reports from './views/Reports.vue'
 import Patients from './views/Patients.vue'
 import Report from './components/Report.vue'
+import Patient from './components/Patient.vue'
 
 Vue.use(Router)
 
@@ -34,6 +35,11 @@ export default new Router({
       path: '/reports/id',
       name: 'report',
       component: Report
+    },
+    {
+      path: '/patients/id',
+      name: 'patient',
+      component: Patient
     }
   ]
 })

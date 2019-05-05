@@ -18,11 +18,10 @@
           <td>{{ props.item.id }}</td>
           <td class="text-xs-left">{{ props.item.index }}</td>
           <td class="text-xs-left">{{ props.item.name }}</td>
-          <td class="text-xs-left">{{ props.item.surnames }}</td>
-          <td class="text-xs-left">{{ props.item.typeCancer }}</td>
-          <td class="text-xs-left">{{ props.item.date }}</td>
+          <td class="text-xs-left">{{ props.item.email }}</td>
+          <td class="text-xs-left">{{ props.item.telephone }}</td>
           <td class="text-xs-left">
-            <v-btn router :to="nextPage" flat><v-icon style="color: #545758; cursor: pointer" router :to="nextPage">visibility</v-icon></v-btn>
+            <v-btn flat router :to="nextPage"><v-icon style="color: #545758; cursor: pointer" router :to="nextPage">visibility</v-icon></v-btn>
           </td>
         </template>
       </v-data-table>
@@ -33,17 +32,17 @@
 export default {
   data() {
     return {
-        nextPage: '/patients/id',
-      items: [
+        nextPage: "/reports/id",
+        items: [
         {
           text: "Home",
           disabled: false,
           href: "/"
         },
         {
-          text: "Pacientes",
+          text: "Informes",
           disabled: true,
-          href: "/patients"
+          href: "/reports"
         }
       ],
       totalDesserts: 0,
@@ -52,17 +51,11 @@ export default {
       pagination: {},
       headers: [
         { text: "Orden del listado", value: "id", sortable: true },
-        {
-          text: "Identificador",
-          align: "left",
-          sortable: true,
-          value: "index"
-        },
+        { text: "Identificador", value: "index" },
         { text: "Nombre", value: "name" },
-        { text: "Apellidos", value: "surnames" },
-        { text: "Tipo de enfermedad", value: "typeCancer" },
-        { text: "Fecha de ingreso", value: "date" },
-        { text: "Ver paciente", value: "view", sortable: false }
+        { text: "Email", value: "email" },
+        { text: "Teléfono", value: "telephone" },
+        { text: "Contactar", value: "view", sortable: false }
       ]
     };
   },
@@ -126,83 +119,52 @@ export default {
       return [
         {
           id: 1,
-          index: "123456789",
-          name: "Pedro",
-          surnames: "Camañes Sorolla",
-          typeCancer: "Colon",
-          date: "24/02/2019"
+          index: 1,
+          name: "Felipe López Fernández",
+          email: "felipelopez@gmail.com",
+          telephone: "11484352"
         },
         {
           id: 2,
-          index: "234567891",
-          name: "Alberto",
-          surnames: "Morales Cerezo",
-          typeCancer: "Pulmón",
-          date: "29/02/2019"
+          index: 2,
+          name: "Adrián González García",
+          email: "adriangonzalez@gmail.com",
+          telephone: "68141456288"
         },
         {
           id: 3,
-          index: "345678912",
-          name: "Miguel Ángel",
-          surnames: "Carmona Guerrero",
-          typeCancer: "Colon",
-          date: "06/03/2019"
+          index: 3,
+          name: "Jaime Lázaro Zagalá",
+          email: "jaime_lazaro@gmail.com",
+          telephone: "18768115"
         },
         {
           id: 4,
-          index: "456789123",
-          name: "Marta",
-          surnames: "Roca Caballero",
-          typeCancer: "Hígado",
-          date: "03/03/2019"
+          index: 4,
+          name: "Esther Ribelles Rivera",
+          email: "estherribelles@gmail.com",
+          telephone: "18458761"
         },
         {
           id: 5,
-          index: "789123456",
-          name: "Gabriela",
-          surnames: "Romero Herrero",
-          typeCancer: "Hígado",
-          date: "24/02/2019"
+          index: 5,
+          name: "Marta Sancho López",
+          email: "msancho_lopez@gmail.com",
+          telephone: "68458781"
         },
         {
           id: 6,
-          index: "123456789",
-          name: "Pedro",
-          surnames: "Camañes Sorolla",
-          typeCancer: "Colon",
-          date: "03/03/2019"
+          index: 6,
+          name: "Felipe Hidalgo Díaz",
+          email: "felipehdiaz@gmail.com",
+          telephone: "66781781"
         },
         {
           id: 7,
-          index: "159753482",
-          name: "María",
-          surnames: "Sanz Hidalgo",
-          typeCancer: "Pecho",
-          date: "26/02/2019"
-        },
-        {
-          id: 8,
-          index: "123456789",
-          name: "Pedro",
-          surnames: "Camañes Sorolla",
-          typeCancer: "Colon",
-          date: "14/03/2019"
-        },
-        {
-          id: 9,
-          index: "159753482",
-          name: "María",
-          surnames: "Sanz Hidalgo",
-          typeCancer: "Pecho",
-          date: "12/03/2019"
-        },
-        {
-          id: 10,
-          index: "268413759",
-          name: "Aroa",
-          surnames: "Mendez Ortiz",
-          typeCancer: "Colon",
-          date: "12/02/2019"
+          index: 7,
+          name: "Pedro Gómez Ruiz",
+          email: "pedrogoru@gmail.com",
+          telephone: "1457757"
         }
       ];
     }
@@ -230,4 +192,3 @@ table.v-table tbody td {
     color: #545758 !important;
 }
 </style>
-

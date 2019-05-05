@@ -3,7 +3,7 @@
     <v-toolbar flat app color="#17A2B8" dark style="color: #DDF0F3">
             <v-toolbar-side-icon @click="drawer = !drawer" style="color: #DDF0F3"></v-toolbar-side-icon>
             <v-toolbar-title>
-                RUHE
+                <v-btn flat router :to="index" style="color: #DDF0F3; font-size: 1.875rem">RUHE</v-btn>
             </v-toolbar-title>
             <v-spacer></v-spacer>
             <div class="text-xs-center">
@@ -22,7 +22,7 @@
                   <v-list-tile
                     v-for="(item, index) in items"
                     :key="index"
-                    @click="drawer = !drawer"
+                    router :to="item.link"
                   >
                     <v-list-tile-title>{{ item.title }}</v-list-tile-title>
                   </v-list-tile>
@@ -45,12 +45,15 @@
 export default {
   data () {
     return {
+      index: "/",
       drawer: false,
       options: [ { name: 'Informes', link: '/reports' },
-                 { name: 'Pacientes', link: '/patients'} ],
+                 { name: 'Pacientes', link: '/patients'},
+                 { name: 'Psicólogos', link: '/psycologists'},
+                 { name: 'Chats', link: '/chat'} ],
       items: [
-        { title: 'Perfil' },
-        { title: 'Cerrar sesión' }
+        { title: 'Perfil', link: '/' },
+        { title: 'Cerrar sesión', link: '/' }
       ]
     }
   }
