@@ -1,5 +1,5 @@
 <template>
-  <div class="ma-4 pa-4">
+  <div id="psychologists" class="ma-4 pa-4">
     <v-breadcrumbs :items="items" large>
       <template v-slot:divider>
         <v-icon>chevron_right</v-icon>
@@ -15,13 +15,12 @@
         class="elevation-1"
       >
         <template v-slot:items="props" flat>
-          <td>{{ props.item.id }}</td>
           <td class="text-xs-left">{{ props.item.index }}</td>
           <td class="text-xs-left">{{ props.item.name }}</td>
           <td class="text-xs-left">{{ props.item.email }}</td>
           <td class="text-xs-left">{{ props.item.telephone }}</td>
           <td class="text-xs-left">
-            <v-btn flat router :to="nextPage"><v-icon style="color: #545758; cursor: pointer" router :to="nextPage">visibility</v-icon></v-btn>
+            <v-btn flat router :to="nextPage"><v-icon style="color: #545758; cursor: pointer" router :to="nextPage">perm_contact_calendar</v-icon></v-btn>
           </td>
         </template>
       </v-data-table>
@@ -32,7 +31,7 @@
 export default {
   data() {
     return {
-        nextPage: "/reports/id",
+        nextPage: "/psychologists/id",
         items: [
         {
           text: "Home",
@@ -40,9 +39,9 @@ export default {
           href: "/"
         },
         {
-          text: "Informes",
+          text: "Psicólogos",
           disabled: true,
-          href: "/reports"
+          href: "/psychologists"
         }
       ],
       totalDesserts: 0,
@@ -50,7 +49,6 @@ export default {
       loading: true,
       pagination: {},
       headers: [
-        { text: "Orden del listado", value: "id", sortable: true },
         { text: "Identificador", value: "index" },
         { text: "Nombre", value: "name" },
         { text: "Email", value: "email" },

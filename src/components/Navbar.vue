@@ -37,6 +37,21 @@
                   <v-list-tile-title class="light-blue--text text--lighten-4" style="font-size: 1.55rem">{{ option.name }}</v-list-tile-title>
                 </v-list-tile-content>
               </v-list-tile>
+              <v-divider class="mt-4"></v-divider>
+              <div class="mt-5">
+                <p style="font-size: 1.55rem" class="light-blue--text text--lighten-4 text-xs-center">Notificaciones</p>
+                <v-card flat class="ma-2 pa-2" color="#DDF0F3">
+                  <div>
+                    <span style="float: left; font-size: 1.2rem; color: #17A2B8; margin-left: 0.5rem">Nuevo informe</span>
+                    <span style="float: right" class="font-weight-bold">07:39</span>
+                  </div>
+                  <br>
+                  <br>
+                  <div>
+                    <span style="font-size: 1.3rem; text-align: left; color: #17A2B8">0415EGP.jpg</span>
+                  </div>
+                </v-card>
+              </div>
             </v-list>
         </v-navigation-drawer>
   </div>
@@ -49,7 +64,7 @@ export default {
       drawer: false,
       options: [ { name: 'Informes', link: '/reports' },
                  { name: 'Pacientes', link: '/patients'},
-                 { name: 'Psicólogos', link: '/psycologists'},
+                 { name: 'Psicólogos', link: '/psychologists'},
                  { name: 'Chats', link: '/chat'} ],
       items: [
         { title: 'Perfil', link: '/' },

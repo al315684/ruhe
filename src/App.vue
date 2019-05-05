@@ -45,7 +45,6 @@
 
 <script>
 import Navbar from "./components/Navbar";
-import Home from "./views/Home";
 
 export default {
   name: "App",
@@ -63,7 +62,6 @@ export default {
       show2: true,
       show3: false,
       show4: false,
-      password: "Password",
       rules: {
         required: value => !!value || "Required.",
         min: v => v.length >= 8 || "Min 8 characters",
