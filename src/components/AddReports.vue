@@ -36,9 +36,13 @@
 export default {
   data() {
     return {
-      name: "",
-      reports: [],
-      data: null,
+        report: {
+            name: '',
+            paciente: '',
+            medico_responsable: '',
+            about: '',
+            reports: []
+        },
       items: [
         {
           text: "Home",
@@ -62,22 +66,24 @@ export default {
   },
   methods: {
     addReport() {
-      this.data = { identifier: this.id, name: this.nombre };
-      this.id = "";
-      this.nombre = "";
-      return fetch("/doctor/post/reports", {
-        method: "POST", // *GET, POST, PUT, DELETE, etc.
-        mode: "cors", // no-cors, cors, *same-origin
-        cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-        credentials: "same-origin", // include, *same-origin, omit
-        headers: {
-          "Content-Type": "application/json"
-          // "Content-Type": "application/x-www-form-urlencoded",
+        this.report = { name: this.name, about: this.about, medico_responsable: this.medico_responsable, pacient: this.paciente };
+        this.name = "";
+        this.about = "";
+        this.medico_responsable = "";
+        this.paciente = "";
+        return fetch("/doctor/post/reports", {
+            method: "POST", // *GET, POST, PUT, DELETE, etc.
+            mode: "cors", // no-cors, cors, *same-origin
+            cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: "same-origin", // include, *same-origin, omit
+            headers: {
+            "Content-Type": "application/json"
+            // "Content-Type": "application/x-www-form-urlencoded",
         },
         redirect: "follow", // manual, *follow, error
         referrer: "no-referrer", // no-referrer, *client
-        body: JSON.stringify(this.data) // body data type must match "Content-Type" header
-      }).then(response => response.json()); // parses response to JSON
+        body: JSON.stringify(this.report) // body data type must match "Content-Type" header
+        }).then(response => response.json()); // parses response to JSON
     }
   }
 };
