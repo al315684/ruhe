@@ -5,6 +5,9 @@
         <v-icon>chevron_right</v-icon>
       </template>
     </v-breadcrumbs>
+    <div class="mt-2 pt-2">
+      <v-btn color="#17a2b8" dark style="color: #DDF0F3" router :to="addReport">Añadir informe</v-btn>
+    </div>
     <div class="mt-3 pt-3">
       <v-data-table
         :headers="headers"
@@ -33,6 +36,7 @@ export default {
   data() {
     return {
         nextPage: "/reports/id",
+        addReport: "/reports/add",
         items: [
         {
           text: "Home",

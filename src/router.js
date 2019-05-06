@@ -5,6 +5,7 @@ import Reports from './views/Reports.vue'
 import Patients from './views/Patients.vue'
 import Psychologists from './views/Psychologists.vue'
 import Report from './components/Report.vue'
+import AddReports from './components/AddReports.vue'
 import Patient from './components/Patient.vue'
 import Psychologist from './components/Psychologist.vue'
 import Chat from './components/Chat.vue'
@@ -58,6 +59,11 @@ export default new Router({
       path: '/chat',
       name: 'chat',
       component: Chat
+    },
+    {
+      path: '/reports/add',
+      name: 'addReports',
+      component: AddReports
     }
   ]
 })

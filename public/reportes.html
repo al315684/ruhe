@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+
+    <title>My first BootstrapVue app</title>
+
+    <!-- Required Stylesheets -->
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css"
+    />
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css"
+    />
+
+    <!-- Required scripts -->
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
+  </head>
+  <body>
+    <!-- Our application root element -->
+    <div id="app">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">RUHE</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link" href="index.html">Inicio </a>
+      <a class="nav-item nav-link active" href="reportes.html">Reportes<span class="sr-only">(current)</span></a>
+    </div>
+  </div>
+</nav>
+
+      <b-container>
+        <b-jumbotron header="Reportes" lead="Gestion de reportes">
+        </b-jumbotron>
+        <div class="row">
+          <div class="col-md-6">
+            <form @submit.prevent="enviarPost">
+                <b-form-group label="ID">
+                  <!--<b-form-input type="text" v-model="id"></b-form-input>-->
+                  <input type="text" class="form-control"  v-model="id">
+                </b-form-group>
+                <b-form-group label="Nombre">
+                  <!--<b-form-input type="text" v-model="nombre"></b-form-input>-->
+                  <input type="text" class="form-control"  v-model="nombre">
+                </b-form-group>
+                <div>
+                  <b-btn type="submit" variant="success">Enviar</b-btn>
+                </div>
+            </form>
+          </div>
+          <div class="col-md-6">
+            <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Name</th>
+                      <th>&nbsp;</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="(user, index) in users" :key="user.id">
+                      <td>{{ user.identifier }}</td>
+                      <td>{{ user.name }}</td>
+                      <td class="text-right">
+                        <b-btn variant="danger" @click="eliminarUsuario(user.identifier,index)" class="btn btn-small"> Eliminar </b-btn>
+                        <!--<b-btn variant="warning" @click="modificarUsuario(user.id,index)">Modificar</b-btn>-->
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+          </div>
+        </div>
+      </b-container>
+    </div>
+
+    <!-- Start running your app -->
+    <script>
+
+	  window.app  = new Vue({
+
+        el: '#app',
+        data: {
+          name: '',
+          users: []
+        },
+        created(){
+        	var self = this
+        	var ES = new EventSource('/news')
+
+        	console.log('Creando listener de eventos de servidor...')
+
+           	ES.addEventListener('reporte', function(event){
+              	   var data = JSON.parse(JSON.parse(event.data)) //bytes to string -> string to json
+              	   console.log(data)
+              	   self.users.push(data)
+                }, false)
+
+        },
+        computed: {
+          showAlert() {
+            return this.name.length > 4 ? true : false
+          }
+        },
+		methods: {
+			//var self = this
+			enviarPost() {
+				data = {identifier:this.id, name:this.nombre}
+        this.id = ''
+        this.nombre = ''
+				return fetch('/doctor/post/reports', {
+					method: "POST", // *GET, POST, PUT, DELETE, etc.
+					mode: "cors", // no-cors, cors, *same-origin
+					cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+					credentials: "same-origin", // include, *same-origin, omit
+					headers: {
+						"Content-Type": "application/json",
+						// "Content-Type": "application/x-www-form-urlencoded",
+					},
+					redirect: "follow", // manual, *follow, error
+					referrer: "no-referrer", // no-referrer, *client
+					body: JSON.stringify(data), // body data type must match "Content-Type" header
+				})
+				.then(response => response.json()); // parses response to JSON
+			},
+
+      eliminarUsuario(id,index) {
+        if (confirm('Estas seguro que quieres eliminar este reporte?')) {
+          this.users.splice(index,1)
+          return fetch('/doctor/delete/report/'+id, {
+            method: "DELETE", // *GET, POST, PUT, DELETE, etc.
+            mode: "cors", // no-cors, cors, *same-origin
+            cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: "same-origin", // include, *same-origin, omit
+            })
+          .then(response => response.json()); // parses response to JSON
+        }
+      },
+      /*modificarUsuario(id,index) {
+          //alert(this.users[index].id)
+          //alert(this.users[index].name)
+          this.id = this.users[0].id
+          this.nombre = this.users[0].name
+          alert("Valor del campo "+this.id)
+
+      },*/
+		},
+        mounted(){
+        	var self = this
+                //Inyectamos usuarios actuales en la componente Vuw
+        	fetch('/doctor/get/reports').then(function(r){return r.json()})
+        	              .then(function(j){self.users.push(...j.result)})
+        }
+      })
+    </script>
+  </body>
+</html>
